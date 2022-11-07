@@ -10,7 +10,7 @@ function NewsCardComponent() {
       <Card onClick={() => setShow(true)}>
         <Card.Img variant="top" src={noImage} />
         <Card.Body>
-          <Card.Title>Card title</Card.Title>
+          <Card.Title>Title</Card.Title>
           <Card.Subtitle className="mb-2 text-muted">Source Name</Card.Subtitle>
           <Card.Text>
             This is a wider card with supporting text below as a natural lead-in
