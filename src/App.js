@@ -1,14 +1,15 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import Container from "react-bootstrap/Container";
-import HeaderComponent from "./Body/Header";
-import NewsGroupComponent from "./Body/NewsGroup";
-import "./Body/News.scss";
+import HeaderComponent from "./Header";
+import NewsGroupComponent from "./Body";
+import PaginationComponent from "./Footer";
 
 function App() {
   return (
     <Container>
       <HeaderComponent />
       <NewsGroupComponent />
+      <PaginationComponent />
     </Container>
   );
 }

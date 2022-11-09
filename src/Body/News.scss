@@ -1,4 +1,6 @@
-.text-pointer:hover {
+$hoverTextColor: rgb(190, 181, 181);
+
+.card-text:hover {
   cursor: pointer;
-  color: rgb(190, 181, 181);
+  color: $hoverTextColor;
 }

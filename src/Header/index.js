@@ -4,7 +4,7 @@ import logo from "../logo.svg";
 
 function HeaderComponent() {
   return (
-    <Navbar bg="light" className="mb-4">
+    <Navbar bg="light" className="mb-3">
       <Container>
         <Navbar.Brand href="#home">
           <img
