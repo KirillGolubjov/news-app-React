@@ -1,16 +1,19 @@
-import React, { useState } from "react";
-import Col from "react-bootstrap/Col";
-import Row from "react-bootstrap/Row";
-import Button from "react-bootstrap/Button";
-import NewsCardComponent from "./NewsCard";
-import "./News.scss";
-import FormComponent from "./Form";
+import React, { useState } from 'react';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
+import Button from 'react-bootstrap/Button';
+import NewsCardComponent from './NewsCard';
+import './News.scss';
+import FormComponent from './Form';
+import { type } from '@testing-library/user-event/dist/type';
+import { Form, FormLabel, OffcanvasBody } from 'react-bootstrap';
 
 function NewsGroupComponent() {
   const [show, setShow] = useState(false);
 
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
+
   return (
     <>
       <Button variant="outline-primary" onClick={handleShow} className="mb-3">
