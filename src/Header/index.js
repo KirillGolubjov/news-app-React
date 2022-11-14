@@ -1,6 +1,6 @@
-import Container from "react-bootstrap/Container";
-import Navbar from "react-bootstrap/Navbar";
-import logo from "../logo.svg";
+import Container from 'react-bootstrap/Container';
+import Navbar from 'react-bootstrap/Navbar';
+import logo from '../logo.svg';
 
 function HeaderComponent() {
   return (
@@ -13,8 +13,8 @@ function HeaderComponent() {
             width="30"
             height="30"
             className="d-inline-block align-top"
-          />{" "}
-          News
+          />{' '}
+          CryptoNews
         </Navbar.Brand>
       </Container>
     </Navbar>
