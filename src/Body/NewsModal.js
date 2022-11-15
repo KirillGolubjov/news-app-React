@@ -1,7 +1,7 @@
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
-import noImage from "../dummy-post-horisontal.jpg";
-import Figure from "react-bootstrap/Figure";
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import noImage from '../dummy-post-horisontal.jpg';
+import Figure from 'react-bootstrap/Figure';
 
 function NewsModalComponent(props) {
   const handleClose = () => props.setShow(false);
@@ -10,14 +10,14 @@ function NewsModalComponent(props) {
     <>
       <Modal size="lg" show={props.show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title>{props.article.title}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Figure>
-            <Figure.Image alt="" src={noImage} />
-            <Figure.Caption>Url</Figure.Caption>
+            <Figure.Image alt="" src={props.article.urlToImage || noImage} />
+            <Figure.Caption>{props.article.url}</Figure.Caption>
           </Figure>
-          <p>Content</p>
+          <p>{props.article.content}</p>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
