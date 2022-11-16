@@ -6,7 +6,6 @@ import moment from 'moment';
 
 function NewsCardComponent({ article }) {
   const [show, setShow] = useState(false);
-  const [formResponse, setFormResponse] = useState(null);
   return (
     <>
       <Card onClick={() => setShow(true)}>
@@ -35,13 +34,7 @@ function NewsCardComponent({ article }) {
           </small>
         </Card.Footer>
       </Card>
-      <NewsModalComponent
-        show={show}
-        setShow={setShow}
-        formResponse={formResponse}
-        setFormRespone={setFormResponse}
-        article={article}
-      />
+      <NewsModalComponent show={show} setShow={setShow} article={article} />
     </>
   );
 }
