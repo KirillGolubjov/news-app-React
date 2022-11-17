@@ -21,6 +21,11 @@ function NewsModalComponent({ setShow, show, article }) {
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
+            <a href={article.url} class="text-decoration-none text-white">
+              Read more
+            </a>
+          </Button>
+          <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
         </Modal.Footer>

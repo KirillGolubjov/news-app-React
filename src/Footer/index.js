@@ -10,7 +10,7 @@ function PaginationComponent() {
         disabled={page === 1}
         onClick={() => setPage(page - 1)}
       />
-      <Pagination.Item disabled>{page} / 15</Pagination.Item>
+      <Pagination.Item disabled>{page} / 2</Pagination.Item>
       <Pagination.Next
         disabled={page === 15} //page.length
         onClick={() => setPage(page + 1)}
