@@ -8,7 +8,7 @@ import moment from 'moment';
 import { getEverything } from '../../services/apiServices';
 import 'react-datepicker/dist/react-datepicker.css';
 
-function FormComponent({ show, handleClose, setFormResponse, searchProps }) {
+function FormComponent({ show, handleClose, setArticles, searchProps }) {
   const [startDateFrom, setStartDateFrom] = useState(new Date());
   const [startDateTo, setStartDateTo] = useState(new Date());
   const dateFormat = 'dd.MM.yyyy';
@@ -44,7 +44,7 @@ function FormComponent({ show, handleClose, setFormResponse, searchProps }) {
 
     const response = await getEverything(data);
     const responseData = await response.json();
-    setFormResponse(responseData);
+    setArticles(responseData.articles);
   }
   return (
     <Offcanvas show={show} onHide={handleClose}>
