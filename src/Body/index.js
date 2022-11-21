@@ -1,15 +1,15 @@
 import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setErrorMessage, setTotalResults } from '../services/stateService';
+import { getEverything } from '../services/apiServices';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import NewsCardComponent from './NewsCard';
 import FormComponent from './Form';
-import { useDispatch } from 'react-redux';
-import { setErrorMessage } from '../services/stateService';
-import { getEverything } from '../services/apiServices';
 import './News.scss';
 
-function NewsGroupComponent(props) {
+function NewsGroupComponent() {
   const [show, setShow] = useState(false);
   const [articles, setArticles] = useState([]);
 
@@ -18,20 +18,23 @@ function NewsGroupComponent(props) {
 
   const dispatch = useDispatch();
 
+  const searchParams = useSelector(state => state.searchParams);
+
   useEffect(() => {
     (async function () {
       try {
-        const response = await getEverything(props);
+        const response = await getEverything(searchParams);
         const responseData = await response.json();
         if (responseData.status === 'error') {
           throw responseData;
         }
         setArticles(responseData.articles);
+        dispatch(setTotalResults(responseData.totalResults));
       } catch (error) {
         dispatch(setErrorMessage(error.message));
       }
     })();
-  }, [props, dispatch]);
+  }, [searchParams, dispatch]);
 
   return (
     <>
@@ -50,7 +53,7 @@ function NewsGroupComponent(props) {
         show={show}
         handleClose={handleClose}
         setArticles={setArticles}
-        searchProps={props}
+        searchProps={searchParams}
       />
     </>
   );
