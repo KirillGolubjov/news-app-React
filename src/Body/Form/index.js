@@ -6,7 +6,7 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import { getEverything } from '../../services/apiServices';
-import { setPage } from '../../services/stateService';
+import { setPage, setErrorMessage } from '../../services/stateService';
 import { useSelector, useDispatch } from 'react-redux';
 import 'react-datepicker/dist/react-datepicker.css';
 
@@ -32,8 +32,8 @@ function FormComponent({ show, handleClose, setArticles, searchProps }) {
 
     const data = {
       q: event.target.q.value,
-      from: moment(startDateFrom).format('YYYY.MM.DDT00:00:00.000'),
-      to: moment(startDateTo).format('YYYY.MM.DDT23:59:59.999'),
+      from: moment(startDateFrom).format('YYYY-MM-DDT00:00:00.000'),
+      to: moment(startDateTo).format('YYYY-MM-DDT23:59:59.999'),
       language: event.target.language.value,
       searchIn: [...event.target.searchIn]
         .filter(input => input.checked)
@@ -43,7 +43,7 @@ function FormComponent({ show, handleClose, setArticles, searchProps }) {
     };
 
     if (moment(data.from).isAfter(data.to)) {
-      alert('Wrong data from');
+      dispatch(setErrorMessage('Wrong data from'));
       return;
     }
 
