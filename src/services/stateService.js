@@ -2,6 +2,7 @@ import { configureStore, createAction, createReducer } from '@reduxjs/toolkit';
 import moment from 'moment';
 
 const pageSize = 12;
+
 const initialState = {
   errorMessage: null,
   totalResults: pageSize,
@@ -19,6 +20,7 @@ const initialState = {
 export const setErrorMessage = createAction('setErrorMessage');
 export const setPage = createAction('setPage');
 export const setTotalResults = createAction('setTotalResults');
+export const setSearchParams = createAction('setSearchParams');
 
 const reducer = createReducer(initialState, {
   [setErrorMessage]: (state, action) => {
@@ -29,6 +31,9 @@ const reducer = createReducer(initialState, {
   },
   [setTotalResults]: (state, action) => {
     state.totalResults = action.playload;
+  },
+  [setSearchParams]: (state, action) => {
+    state.searchParams = action.payload;
   },
 });
 

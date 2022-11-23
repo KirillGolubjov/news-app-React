@@ -20,7 +20,7 @@ function PaginationComponent() {
         {page} / {totalPages}
       </Pagination.Item>
       <Pagination.Next
-        disabled={page >= totalPages} //page.length
+        disabled={page >= totalPages}
         onClick={() => dispatch(setPage(page + 1))}
       />
     </Pagination>
