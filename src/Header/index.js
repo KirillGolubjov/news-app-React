@@ -5,6 +5,9 @@ import logo from '../logo.svg';
 import { Link } from 'react-router-dom';
 
 function HeaderComponent() {
+  // Link компонент помогает нам работать со ссылками правильно в реакт приложении
+  // Link запускает react-router, который в свою очередь решает какие компоненты показывать
+  // Благодаря Link и Route у нас не перезагружается страница, а происходит лишь рендер компонента.
   return (
     <Navbar bg="light" className="mb-3">
       <Container>

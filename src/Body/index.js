@@ -20,13 +20,19 @@ function NewsGroupComponent() {
 
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
-
+  // useParams - это хук react-router-dom для получения информации со ссылки.
   const { q, lang } = useParams();
-
+  // useDispatch - это хук react-redux и благодаря ему мы можем взаимодействовать с redux
+  // useDispatch - это мост между React и Redux
   const dispatch = useDispatch();
-
+  // useSelector - это react-redux хук который следит за redux состоянием и при наличии изменений запускает отрисовку компонента.
   const searchParams = useSelector(state => state.searchParams);
 
+  // UseEffect - это React хук, который запускается после того как первый рендер отрисовка компонента произошло
+  // UseEffect принимает два параметра: 1 Функция которую нужно запустить, 2 Массив из переменных от которых будет зависеть дальнейшая работа UseEffect
+  // Все внешние переменные которые мы используем в функции, должны быть в массиве зависимостей
+  // При любых изменениях этих зависимостей UseEffect запускается
+  // При изменении в компоненте не касающихся зависимости UseEffect, не запускают UseEffect, но компонент рендерится, поэтому лучше всего работать в нём с запросами.
   useEffect(() => {
     if (lang && searchParams.language !== lang) {
       dispatch(
@@ -48,6 +54,7 @@ function NewsGroupComponent() {
           throw responseData;
         }
         setArticles(responseData.articles);
+        // Redux действие необходимо обернуть в dispatch
         dispatch(setTotalResults(responseData.totalResults));
       } catch (error) {
         dispatch(setErrorMessage(error.message));
