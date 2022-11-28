@@ -44,6 +44,7 @@ function NewsGroupComponent() {
           q: q || searchParams.q,
         });
         const responseData = await response.json();
+
         if (responseData.status === 'error') {
           throw responseData;
         }

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -8,6 +8,7 @@ import moment from 'moment';
 import { setErrorMessage, setSearchParams } from '../../services/stateService';
 import { useSelector, useDispatch } from 'react-redux';
 import 'react-datepicker/dist/react-datepicker.css';
+import { getSources } from '../../services/apiServices';
 
 function FormComponent({ show, handleClose, searchProps }) {
   const [startDateFrom, setStartDateFrom] = useState(new Date());
@@ -15,6 +16,7 @@ function FormComponent({ show, handleClose, searchProps }) {
   const dateFormat = 'dd.MM.yyyy';
   const pageSize = useSelector(state => state.searchParams.pageSize);
   const dispatch = useDispatch();
+  const [sources, setSources] = useState([]);
 
   const languages = [
     { label: 'English', code: 'en' },
@@ -50,6 +52,15 @@ function FormComponent({ show, handleClose, searchProps }) {
     dispatch(setSearchParams(data));
     handleClose();
   }
+
+  useEffect(() => {
+    return async () => {
+      const response = await getSources();
+      const responseData = await response.json();
+      dispatch(setSources(responseData.sources));
+    };
+  }, []);
+
   return (
     <Offcanvas show={show} onHide={handleClose}>
       <Offcanvas.Header closeButton>
@@ -100,6 +111,17 @@ function FormComponent({ show, handleClose, searchProps }) {
                 dateFormat={dateFormat}
               />
             </InputGroup>
+          </Form.Group>
+
+          <Form.Group className="mb-3">
+            <Form.Label>Select source</Form.Label>
+            <Form.Select defaultValue={searchProps.source} name="source">
+              {sources.map((source, idx) => (
+                <option key={idx} value={source}>
+                  {source.name}
+                </option>
+              ))}
+            </Form.Select>
           </Form.Group>
 
           <Form.Group className="mb-3">
