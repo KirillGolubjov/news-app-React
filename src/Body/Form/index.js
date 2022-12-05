@@ -13,10 +13,10 @@ import { getSources } from '../../services/apiServices';
 function FormComponent({ show, handleClose, searchProps }) {
   const [startDateFrom, setStartDateFrom] = useState(new Date());
   const [startDateTo, setStartDateTo] = useState(new Date());
+  const [sources, setSources] = useState([]);
   const dateFormat = 'dd.MM.yyyy';
   const pageSize = useSelector(state => state.searchParams.pageSize);
   const dispatch = useDispatch();
-  const [sources, setSources] = useState([]);
 
   const languages = [
     { label: 'English', code: 'en' },
@@ -25,9 +25,27 @@ function FormComponent({ show, handleClose, searchProps }) {
     { label: 'French', code: 'fr' },
     { label: 'Spanish', code: 'es' },
   ];
+
   const capitalizeLetter = function (str) {
     return str[0].toUpperCase() + str.substring(1);
   };
+
+  useEffect(() => {
+    (async function () {
+      try {
+        const response = await getSources();
+        const responseData = await response.json();
+
+        if (responseData.status === 'error') {
+          throw responseData;
+        }
+        setSources(responseData.sources);
+      } catch (error) {
+        dispatch(setErrorMessage(error.message));
+      }
+    })();
+  }, [setSources, dispatch]);
+
   async function handleSubmit(event) {
     event.preventDefault();
 
@@ -42,6 +60,7 @@ function FormComponent({ show, handleClose, searchProps }) {
         .join(','),
       pageSize,
       page: 1,
+      sources: event.target.source.value,
     };
 
     if (moment(data.from).isAfter(data.to)) {
@@ -52,14 +71,6 @@ function FormComponent({ show, handleClose, searchProps }) {
     dispatch(setSearchParams(data));
     handleClose();
   }
-
-  useEffect(() => {
-    return async () => {
-      const response = await getSources();
-      const responseData = await response.json();
-      dispatch(setSources(responseData.sources));
-    };
-  }, []);
 
   return (
     <Offcanvas show={show} onHide={handleClose}>
@@ -115,9 +126,10 @@ function FormComponent({ show, handleClose, searchProps }) {
 
           <Form.Group className="mb-3">
             <Form.Label>Select source</Form.Label>
-            <Form.Select defaultValue={searchProps.source} name="source">
-              {sources.map((source, idx) => (
-                <option key={idx} value={source}>
+            <Form.Select name="source" defaultValue={searchProps.source}>
+              <option value="">Choose source</option>
+              {sources.map(source => (
+                <option key={source.id} value={source.id}>
                   {source.name}
                 </option>
               ))}

@@ -8,7 +8,7 @@ function HeaderComponent() {
   return (
     <Navbar bg="light" className="mb-3">
       <Container>
-        <Link to="/" className="navbar-brand">
+        <Link to="/news-app" className="navbar-brand">
           <img
             alt=""
             src={logo}
@@ -20,7 +20,7 @@ function HeaderComponent() {
         </Link>
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Link to="/contact" className="nav-link">
+            <Link to="/news-app/contact" className="nav-link">
               Contact
             </Link>
           </Nav>

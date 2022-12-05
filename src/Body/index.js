@@ -10,11 +10,11 @@ import {
   setTotalResults,
   setSearchParams,
 } from '../services/stateService';
-import { getEverything } from '../services/apiServices';
+import { getEverything, getEverythingDummy } from '../services/apiServices';
 import { useParams, Link } from 'react-router-dom';
 import './News.scss';
 
-function NewsGroupComponent() {
+function BodyComponent() {
   const [show, setShow] = useState(false);
   const [articles, setArticles] = useState([]);
 
@@ -52,6 +52,9 @@ function NewsGroupComponent() {
         dispatch(setTotalResults(responseData.totalResults));
       } catch (error) {
         dispatch(setErrorMessage(error.message));
+        const response = await getEverythingDummy();
+        const responseData = await response.json();
+        setArticles(responseData.articles);
       }
     })();
   }, [searchParams, dispatch, q, lang]);
@@ -61,7 +64,7 @@ function NewsGroupComponent() {
       <Button variant="outline-primary" onClick={handleShow} className="mb-3">
         Search
       </Button>
-      <Link to="/bitcoin">Bitcoin today</Link>
+      <Link to="/news-app/bitcoin">Bitcoin today</Link>
 
       <Row xs={1} md={2} lg={3} className="g-2">
         {articles.map((article, idx) => (
@@ -80,4 +83,4 @@ function NewsGroupComponent() {
   );
 }
 
-export default NewsGroupComponent;
+export default BodyComponent;
