@@ -1,9 +1,9 @@
+import { useState, useEffect } from 'react';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import NewsCardComponent from './NewsCard';
 import FormComponent from './Form';
-import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   setErrorMessage,

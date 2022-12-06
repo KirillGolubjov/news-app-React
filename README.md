@@ -1,70 +1,44 @@
-# Getting Started with Create React App
+# Crypto News App Documentation
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+В данном приложении вы сможете найти информацию о криптовалюте из наиболее популярных мировых СМИ.
 
-## Available Scripts
+Для получения необходимой информации, я использую вебсайт: [https://newsapi.org/](https://newsapi.org/), который позволяет осуществлять бесплатно до 100 запросов ежедневно. Чтобы получать данные, требуется регистрация на сайте и получение API ключа.
 
-In the project directory, you can run:
+Для верстки приложения используеются готовые компоненты из `React-Bootstrap`. Это свободный набор инструментов для создания сайтов и веб-приложений.
 
-### `npm start`
+Для управления состоянием приложения, я воспользовался библиотекой `Redux`. Она содержит ряд инструментов, позволяющих значительно упростить передачу данных хранилища через контекст.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Маршрутизатором приложения является модуль `react-router`, который содержит основной функционал по работе с маршрутизацией. Для работы с браузером я использую модуль `react-router-dom` обернув компоненты в `App.js`
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Далее я хотел бы описать содержимое приложения более подробно.
 
-### `npm test`
+Первым делом был сформирован каркас, где гланым файлом является `App.js`, включающий в себя все последущие компоненты и файлы, такие как:
+Header: `HeaderComponent`
+Body: `BodyComponent`, `NewsModalComponent`, `NewsCardComponent`, `ContactComponent`, `ContactSchoolComponent`, /Form: `FormComponent`
+Footer: `PaginationComponent`
+`ErrorModalComponent`
+`News.scss`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Помимо файлов формирующих визуальную составляющую, приложение содержит и другие файлы:
 
-### `npm run build`
+`apiServices` - в данном файле содержатся асинхронные функции `getEverything` и `getSources`, которые методом `fetch` передают последние обновления с сервера.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+`stateService` - это файл в который импортирован `reduxjs/toolkit`, в котором поместились данные(в качестве значения по умолчанию используется объект initialState) и функции Action-creator, которые используются в переменной reducer. Сформировав reducer, куда помещаются initialState и Action, с помощью функции createReducer обернутую в configureStore он был импортирован далее в корневой компонент в качестве переменной store. Так же я обернул корневой компонент нашего приложения компонентом `react-redux Provider`.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+`.env` - этот файл позволяет нам скрыть `ApiKey`.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+"Шапка" приложения `HeaderComponent` включает в себя лого-линк и ссылку на контакты.
 
-### `npm run eject`
+Тело приложения содержит основную информацию приложения. Получив данные в `BodyComponent` с помощью `apiServices`, он передает данные в `NewsCardComponent` которые в последствии там рендерятся в виде 12-ти "карточек" с содержимым.
+Внутри компонента находится хук `useEffect`, который импортируется из React как и другие хуки (например `useState`). Этот хук позволяет нам вызвать ряд побочных эффектов, после того как компонент отрендерится. В данном случае, в качестве второго параметра у нас массив с зависимостями, только после их изменения, `useEffect` будет выполнятся повторно.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Кнопка `Search` открывает `FormComponent`, это окно, позволяющее отфильтровать запрос пользователя. Файл содержит большое количество параметров, такие как: поисковый `Input`, возможность сортировки по `Title, Description, Content`, даты с и до, язык, а так же выбор конкретного источника новостей по имени(данный запрос идет напрямую при помощи `apiServices`). Внутри компонента находится объект
+`data`, содержащий в себе необходимые нам данные при формировании запроса.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+`NewsModalComponent` - этот компонент, возволяет нам открыть модальное окно, которое содежит в себе пропсы переданные из `BodyComponent`. Это хуки `const [show, setShow] = useState(false)` и `article`.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+`ErrorModalComponent` - второе модальное окно, появляющееся при возникновении ошибки.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+`PaginationComponent()` - этот компонент отвечает за последовательность нумерации страниц и их отображение.
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+`useDispatch` и `useSelector` - этот набор хуков от Redux позволяет получить доступ к существующему компоненту более высокого порядка. Мы используем данный набор в `ErrorModalComponent`,`PaginationComponent` и `FormComponent`.

@@ -7,7 +7,7 @@ const initialState = {
   errorMessage: null,
   totalResults: pageSize,
   searchParams: {
-    q: 'crypto, bitcoin',
+    q: 'Crypto',
     from: moment().format('YYYY.MM.DDT00:00:00.000'),
     to: moment().format('YYYY.MM.DDT23:59:59.999'),
     language: 'en',
