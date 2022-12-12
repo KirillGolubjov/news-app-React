@@ -4,7 +4,7 @@ export async function getEverything(data) {
   const params = new URLSearchParams({
     ...data,
     apiKey: process.env.REACT_APP_API_KEY,
-    // apiKey: '',
+    apiKey: '',
   });
   return await fetch(`${apiUrl}/v2/everything?${params}`);
 }
@@ -17,7 +17,7 @@ export async function getSources(data) {
 }
 
 export async function getEverythingDummy() {
-  return await fetch(`/news-app/dummy-response.json`, {
+  return await fetch(`/dummy-response.json`, {
     headers: {
       'Content-Type': 'application/json',
       Accept: 'application/json',
